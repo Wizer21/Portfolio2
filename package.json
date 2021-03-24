@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "locomotive-scroll": "^4.1.1",
+    "matter-js": "^0.16.1",
     "three": "^0.126.1",
     "three-gltf-loader": "^1.111.0",
     "three-orbit-controls": "^82.1.0",

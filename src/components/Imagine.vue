@@ -6,7 +6,7 @@
       <h2>
         Imagine
       </h2>
-    </div>
+    </div>    
   </div>
 </template>
 
@@ -18,6 +18,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 export default {
   name: 'Imagine',
   mounted() {
+    // --- 3D SCENE ---
     const OrbitControls = oc(THREE)
     const three_scene = document.getElementById('scene_3d')
 
