@@ -32,10 +32,12 @@ export default {
       }    
       
       // Title animation
-      setTimeout(() => {
-        document.getElementById('build_title').style.opacity = "1"
-        document.getElementById('build_title').style.transform = "translateY(10vh)"
-      }, 1800)
+      let build_title = document.getElementById('build_title')
+      build_title.style.opacity = "1"
+      build_title.style.transform = "translateY(10vh)"
+
+      build_title.dataset.scroll = ""
+      build_title.dataset.scrollSpeed = "-10"
     },
     createItem(w, h){
       var item = this.Bodies.rectangle(w, h, 100, 100)
@@ -93,6 +95,7 @@ export default {
 {
   height: 100vh;
   width: 100vw;
+  overflow: hidden;
 
   display: grid;
 }

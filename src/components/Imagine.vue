@@ -19,6 +19,22 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 export default {
   name: 'Imagine',
+  data(){
+    return {
+      lastPos: 0,
+      houseRotation: [0, 0, 0],      
+      couille: "dab"
+    }
+  },
+  methods: {
+    updateScene(data) {
+      let pos = data.scroll.y
+      if (this.lastPos != 0){
+        console.log("diff", this.lastPos - pos)
+      }
+      this.lastPos = pos
+    }
+  },
   mounted() {
     // --- 3D SCENE ---
     const OrbitControls = oc(THREE)
@@ -68,6 +84,11 @@ export default {
 
     const animate = function () {
       requestAnimationFrame(animate)
+
+      if (house){
+        console.log("in", data)
+        //house.rotation.set(this.houseRotation[0], this.houseRotation[1], this.houseRotation[2])
+      }
       renderer.render(scene, camera)
     }
     animate()
