@@ -4,7 +4,7 @@
     <Love data-scroll-section />
     <Imagine data-scroll-section />
     <Cloud data-scroll-section />
-    <Build data-scroll-section  id="build" ref="refbuild"/>
+    <Build data-scroll-section id="build" ref="refbuild"/>
     <div id="testboy">
     </div>
   </div>

@@ -1,12 +1,14 @@
 <template>
-  <div id="imagine">
-    <div id="scene_3d">
+  <div>
+    <div id="imagine_holder">
+      <div id="scene_3d">
+      </div>
+      <div id="imagine_text">
+        <h2>
+          Imagine
+        </h2>
+      </div>    
     </div>
-    <div id="imagine_text">
-      <h2>
-        Imagine
-      </h2>
-    </div>    
   </div>
 </template>
 
@@ -74,7 +76,7 @@ export default {
 </script>
 
 <style scoped>
-#imagine
+#imagine_holder
 {
   display: grid;
 }
@@ -97,7 +99,7 @@ export default {
   grid-column: 1;
   grid-row: 1;
 }
-#imagine h2
+#imagine_text h2
 {
   font-size: 15vw;
 }
