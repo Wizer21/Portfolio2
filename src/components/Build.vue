@@ -29,7 +29,13 @@ export default {
       
       for (let i of pos_list){
         this.createItem(i[0], i[1])
-      }      
+      }    
+      
+      // Title animation
+      setTimeout(() => {
+        document.getElementById('build_title').style.opacity = "1"
+        document.getElementById('build_title').style.transform = "translateY(10vh)"
+      }, 1800)
     },
     createItem(w, h){
       var item = this.Bodies.rectangle(w, h, 100, 100)
@@ -92,11 +98,16 @@ export default {
 }
 #build_title
 {
-  font-size: 10vw;
+  font-size: 35vw;
   text-align: center;
+  transform: translateY(-30vh);
+  transition-duration: 500ms;
+  margin: 0px;
+  opacity: 0;
   
   grid-column: 1;
   grid-row: 1;
+  pointer-events: none;
 }
 #matter_scene
 {
