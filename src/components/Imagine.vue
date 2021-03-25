@@ -22,8 +22,7 @@ export default {
   data(){
     return {
       lastPos: 0,
-      houseRotation: [0, 0, 0],      
-      couille: "dab"
+      houseRotation: [0, 0, 0]
     }
   },
   methods: {
@@ -86,7 +85,6 @@ export default {
       requestAnimationFrame(animate)
 
       if (house){
-        console.log("in", data)
         //house.rotation.set(this.houseRotation[0], this.houseRotation[1], this.houseRotation[2])
       }
       renderer.render(scene, camera)
