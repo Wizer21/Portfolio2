@@ -22,16 +22,55 @@ export default {
   data(){
     return {
       lastPos: 0,
-      houseRotation: [0, 0, 0]
+      cameraRotation: [-3.14, 0.06, 3.14],
+      cameraPosition: [1.22, 0.87, -9.99],
+      scrolling: false,
+      timer: null,
+      houseRotationY: 3,
+      houseRotationX: 0.3
     }
   },
   methods: {
     updateScene(data) {
       let pos = data.scroll.y
       if (this.lastPos != 0){
-        console.log("diff", this.lastPos - pos)
+        this.houseRotationY += (this.lastPos - pos) * 0.002
+        this.houseRotationX += (this.lastPos - pos) * 0.0003
+
+        this.scrolling = true
+
+        clearTimeout(this.timer)
+        this.timer = setTimeout(() => {
+          this.scrolling = false
+        }, 100)
       }
       this.lastPos = pos
+    },
+    rotateCamera(camera, house){
+      if (this.scrolling){
+        // Calculate rotation modification
+        let camera_rotation_x = (this.cameraRotation[0] - camera.rotation.x ) * 0.05
+        let camera_rotation_y = (this.cameraRotation[1] - camera.rotation.y ) * 0.05
+        let camera_rotation_z = (this.cameraRotation[2] - camera.rotation.z ) * 0.05
+        // Apply rotation modification
+        camera.rotation.x += camera_rotation_x
+        camera.rotation.y += camera_rotation_y
+        camera.rotation.z += camera_rotation_z
+        
+        // Calculate position modification
+        let camera_position_x = (this.cameraPosition[0] - camera.position.x ) * 0.05
+        let camera_position_y = (this.cameraPosition[1] - camera.position.y ) * 0.05
+        let camera_position_z = (this.cameraPosition[2] - camera.position.z ) * 0.05
+        // Apply position modification        
+        camera.position.set(camera.position.x + camera_position_x, camera.position.y + camera_position_y, camera.position.z + camera_position_z)
+
+        // Calculate House rotation modification        
+        let house_rotationX = (this.houseRotationX - house.rotation.x ) * 0.05
+        let house_rotationY = (this.houseRotationY - house.rotation.y ) * 0.05
+        // Apply House rotation modification        
+        house.rotation.x += house_rotationX
+        house.rotation.y += house_rotationY      
+      }
     }
   },
   mounted() {
@@ -47,14 +86,14 @@ export default {
     loader.load("model/casa.glb", function ( gltf ) {
       house = scene.add( gltf.scene )    
       house = house.children[house.children.length - 1]
-      house.rotation.y = 1
+      house.rotation.y = this.houseRotationY
+      house.rotation.x = this.houseRotationX
     }) 
 
     // Lantern pos = (6.5, 1.2, -4)
     const point_light = new THREE.PointLight( 0xffffff, 1, 100 )
     point_light.position.set(6.5, 1.2, -4)
     scene.add( point_light );
-
 
     // Camera
     const camera = new THREE.PerspectiveCamera(
@@ -63,7 +102,10 @@ export default {
       0.1,
       100
     )
-    camera.position.set(0, 0, -80)
+    camera.position.set(1.22, 0.87, -9.99)
+    camera.rotation.x = this.cameraRotation[0] 
+    camera.rotation.y = this.cameraRotation[1] 
+    camera.rotation.z = this.cameraRotation[2] 
 
     // Render
     let renderer = new THREE.WebGLRenderer({ alpha: true , antialias: true })
@@ -81,12 +123,14 @@ export default {
     controls.enableZoom = false
     controls.update()
 
+    let local = this
     const animate = function () {
       requestAnimationFrame(animate)
 
-      if (house){
-        //house.rotation.set(this.houseRotation[0], this.houseRotation[1], this.houseRotation[2])
+      if(camera){
+        local.rotateCamera(camera, house)        
       }
+      
       renderer.render(scene, camera)
     }
     animate()
