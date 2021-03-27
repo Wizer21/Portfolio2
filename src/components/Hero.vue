@@ -24,7 +24,7 @@
           Simon
         </p> 
       </div>
-      <div id="sub_title">
+      <div id="sub_title" data-scroll data-scroll-speed="-1">
         <div id="creative_stack">
         </div>
         <p>
@@ -147,7 +147,7 @@ export default {
 }
 #hero_title_holder p
 {  
-  font-size: 15em;
+  font-size: 20vw;
   margin: 0px;
 
   grid-column: 1;
@@ -174,7 +174,7 @@ export default {
 }
 #sub_title p
 {
-  font-size: 4em;
+  font-size: 6vw;
   padding: 0.5em;
   margin: 0px;
 }
@@ -237,7 +237,7 @@ export default {
   grid-column: 1;
   grid-row: 1;
   
-  font-size: 4em;
+  font-size: 6vw;
   padding: 0.5em;
   margin: 0px;
 }

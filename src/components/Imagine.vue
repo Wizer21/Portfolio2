@@ -77,8 +77,8 @@ export default {
     // --- 3D SCENE ---
     const OrbitControls = oc(THREE)
     const three_scene = document.getElementById('scene_3d')
-
     let scene = new THREE.Scene()
+    let local = this
 
     // Load 3D elements
     const loader = new GLTFLoader() 
@@ -86,7 +86,7 @@ export default {
     loader.load("model/casa.glb", function ( gltf ) {
       house = scene.add( gltf.scene )    
       house = house.children[house.children.length - 1]
-    }) 
+    })     
 
     // Lantern pos = (6.5, 1.2, -4)
     const point_light = new THREE.PointLight( 0xffffff, 1, 100 )
@@ -100,10 +100,7 @@ export default {
       0.1,
       100
     )
-    camera.position.set(1.22, 0.87, -9.99)
-    camera.rotation.x = this.cameraRotation[0] 
-    camera.rotation.y = this.cameraRotation[1] 
-    camera.rotation.z = this.cameraRotation[2] 
+    camera.position.set(this.cameraPosition[0], this.cameraPosition[1], this.cameraPosition[2])
 
     // Render
     let renderer = new THREE.WebGLRenderer({ alpha: true , antialias: true })
@@ -121,7 +118,6 @@ export default {
     controls.enableZoom = false
     controls.update()
 
-    let local = this
     const animate = function () {
       requestAnimationFrame(animate)
 

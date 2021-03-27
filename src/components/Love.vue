@@ -1,9 +1,21 @@
 <template>
   <div id="love">
-    <h2>
-      What I love
-    </h2>
-    <p>
+    <div id="love_title">
+      <h2>
+        What I
+      </h2>
+      <div id="love_holder" >
+        <h2 id="love_text_placeholder">
+          love
+        </h2>
+        <div id="div_slider" data-scroll data-scroll-speed="10" data-scroll-direction="horizontal">
+          <h2 id="love_text" data-scroll data-scroll-speed="-10" data-scroll-direction="horizontal">
+            love
+          </h2>
+        </div>
+      </div>
+    </div>
+    <p id="is_text">
       is
     </p>
   </div>
@@ -28,10 +40,42 @@ export default {
 #love h2
 {
   font-size: 15vw;
+  margin: 2vw;
 }
-#love p
+#love_title
+{
+  display: flex;
+  flex-direction: row;
+}
+#love_holder
+{ 
+  display: grid;
+}
+#love_text_placeholder
+{
+  color: transparent;
+  grid-column: 1;
+  grid-row: 1;
+}
+#div_slider
+{
+  grid-column: 1;
+  grid-row: 1;
+  overflow: hidden;
+
+  clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+}
+#love_text
+{
+  position: absolute;
+  color: #f44336;
+}
+/* Is text */
+#is_text
 {
   font-size: 15vw;
-  margin: 0px;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  margin-left: 50vw
 }
 </style>
