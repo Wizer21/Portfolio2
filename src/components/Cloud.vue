@@ -2,7 +2,7 @@
   <div id="cloud"> 
     <div id="cloud_container" data-scroll data-scroll-speed="4">
       <img :src="require('../assets/image/cloud.png')" alt="cloud">
-      <p>
+      <p data-scroll data-scroll-speed="-2">
         and
       </p>
     </div>
@@ -20,7 +20,7 @@ export default {
 {
   position: absolute;
   z-index: 2;
-  pointer-events: none;
+  pointer-events: none !important;
 }
 #cloud_container
 {
@@ -29,14 +29,12 @@ export default {
   height: 150vh;
 
   top: -85vh;
-  pointer-events: none;
 }
 #cloud_container img
 {
   object-fit: fill;
   width: 100%;
   height: 100%;
-  pointer-events: none;
 }
 #cloud_container p
 {
@@ -44,6 +42,5 @@ export default {
   font-size: 6vw; 
   margin: 2em;
   top: -95vh;
-  pointer-events: none;
 }
 </style>

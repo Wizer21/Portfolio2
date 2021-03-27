@@ -1,8 +1,5 @@
 <template>
   <div id="build">
-    <h2 id="build_title">
-      Build
-    </h2>
     <div id="matter_scene">
     </div>
   </div>
@@ -30,17 +27,56 @@ export default {
       for (let i of pos_list){
         this.createItem(i[0], i[1])
       }    
-      
-      // Title animation
-      let build_title = document.getElementById('build_title')
-      build_title.style.opacity = "1"
-      build_title.style.transform = "translateY(10vh)"
 
-      build_title.dataset.scroll = ""
-      build_title.dataset.scrollSpeed = "-10"
+      let stack = [
+        {
+          url: require("../assets/image/buildTitle/b.png"),
+          width: 390,
+          height: 560
+        },
+        {
+          url: require("../assets/image/buildTitle/u.png"),
+          width: 315,
+          height: 428
+        },
+        {
+          url: require("../assets/image/buildTitle/i.png"),
+          width: 19,
+          height: 592
+        },
+        {
+          url: require("../assets/image/buildTitle/l.png"),
+          width: 46,
+          height: 577
+        },
+        {
+          url: require("../assets/image/buildTitle/d.png"),
+          width: 394,
+          height: 600
+        }]
+
+      for (let i = 0; i < stack.length; i++){
+        this.createLetter(stack[i], i)
+      }
     },
     createItem(w, h){
       var item = this.Bodies.rectangle(w, h, 100, 100)
+      this.World.add(this.engine.world, [item])
+    },
+    createLetter(letter, pos){
+      let widthPart = window.innerWidth / 7
+      let final_height = window.innerHeight / 2
+
+      let ratio = (letter.height / final_height)
+      let final_width = letter.width / ratio
+      
+      let item = this.Bodies.rectangle(widthPart * (pos + 1), 500, final_width, final_height)
+      item.render.sprite.texture = letter.url
+      item.render.sprite.xScale = 1 / ratio
+      item.render.sprite.yScale = 1 / ratio
+
+      console.log(ratio)
+      
       this.World.add(this.engine.world, [item])
     }
   },
@@ -54,14 +90,14 @@ export default {
     
     // create a renderer
     let render_2d = Render.create({
-    element: container,
-    engine: this.engine,
-    options: {
+      element: container,
+      engine: this.engine,
+      options: {
         wireframes: false,
         height: window.innerHeight,
         width: window.innerWidth,
         background: 'transparent',
-    }
+      }
     })
 
     let ground = this.Bodies.rectangle( -200, window.innerHeight, window.innerWidth * 2 + 800, 50, { isStatic: true })
@@ -98,19 +134,6 @@ export default {
   overflow: hidden;
 
   display: grid;
-}
-#build_title
-{
-  font-size: 35vw;
-  text-align: center;
-  transform: translateY(-30vh);
-  transition-duration: 500ms;
-  margin: 0px;
-  opacity: 0;
-  
-  grid-column: 1;
-  grid-row: 1;
-  pointer-events: none;
 }
 #matter_scene
 {

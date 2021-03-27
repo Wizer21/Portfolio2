@@ -75,7 +75,7 @@ export default {
 {
   font-size: 15vw;
   margin-top: 2vh;
-  margin-bottom: 2vh;
+  margin-bottom: 0px;
   margin-left: 50vw
 }
 </style>
