@@ -40,7 +40,7 @@ export default {
   name: 'Hero',  
   mounted(){
     // Create text animation
-    let color_stack =  ["e53935", "8e24aa", "3949ab", "039be5", "039be5", "7cb342", "fdd835", "fb8c00"]
+    let color_stack =  ["e53935", "8e24aa", "3949ab", "039be5", "00897b", "7cb342", "fdd835", "fb8c00"]
     let creative_stack = document.getElementById('creative_stack')
 
     let elem 
