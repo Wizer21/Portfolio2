@@ -1,5 +1,9 @@
 <template>
   <div id="hero">
+    <div id="center_bubble">
+      <span id="bubble1">      
+      </span>
+    </div>
     <div id="hero_header">
       <a href="" id="projects_button">
         Projets
@@ -22,9 +26,9 @@
 
 <script>
 export default {
-  name: 'Hero',
-  
+  name: 'Hero',  
   mounted(){
+    // Create text animation
     let color_stack =  ["e53935", "8e24aa", "3949ab", "039be5", "039be5", "7cb342", "fdd835", "fb8c00"]
     let creative_stack = document.getElementById('creative_stack')
 
@@ -40,6 +44,20 @@ export default {
       }, latency)
       latency += 325
     }
+
+    // Create bubbles
+    let hero = document.getElementById('hero')
+    let bubble1 = document.getElementById('bubble1')
+    hero.addEventListener('mousemove', event => {
+      let square = hero.getBoundingClientRect()
+      let x = event.offsetX - square.width/2
+      let y = event.offsetY - square.height/2
+
+      bubble1.style.transform = `translate(${-x}px, ${-y}px)`
+
+      console.log(x, y)
+
+    })
   }
 }
 </script>
@@ -49,6 +67,7 @@ export default {
 {
   display: flex;
   justify-content: flex-end;
+  pointer-events: none;
 }
 #hero_body
 {
@@ -59,6 +78,7 @@ export default {
 
   width: 100vw;
   height: 100vh;
+  pointer-events: none;
 }
 #projects_button
 {
@@ -86,6 +106,25 @@ export default {
 {
   display: grid;
 }
+/*  Bubbles */
+#center_bubble
+{
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+#bubble1
+{
+  position: absolute;
+  height: 2em;
+  width: 2em;
+  background-color: red;
+  pointer-events: none;
+}
+
 </style>
 
 <style>
