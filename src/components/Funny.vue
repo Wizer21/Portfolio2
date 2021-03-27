@@ -12,7 +12,6 @@ export default {
     loadLetters() {
       let stack = document.getElementsByClassName('letter')
       for (let letter of stack){
-        console.log('letter', letter)
         letter.style.transform = "translate(0vw, 0vw)"
       }
     }

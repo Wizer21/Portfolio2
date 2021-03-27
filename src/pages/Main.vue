@@ -6,8 +6,7 @@
     <Cloud data-scroll-section />
     <Build data-scroll-section id="build" ref="refbuild"/>
     <Funny data-scroll-section id="funny" ref="reffunny" />
-    <div id="testboy">
-    </div>
+    <Footer data-scroll-section />
   </div>
 </template>
 
@@ -18,12 +17,13 @@ import Imagine from '../components/Imagine.vue'
 import Cloud from '../components/Cloud.vue'
 import Build from '../components/Build.vue'
 import Funny from '../components/Funny.vue'
+import Footer from '../components/Footer.vue'
 
 import LocomotiveScroll from 'locomotive-scroll';
 
 export default {
   name: 'Main',
-  components: { Hero, Love, Imagine, Build, Cloud, Funny },
+  components: { Hero, Love, Imagine, Build, Cloud, Funny, Footer },
   daat(){
     return {
       scroll: null
@@ -82,10 +82,4 @@ export default {
 
 <style scoped>
 @import '../locomotive/locomotive-scroll.css';
-#testboy
-{
-  height: 200vh;
-  width: 100vw;
-  background-color: rgb(218, 151, 64);
-}
 </style>

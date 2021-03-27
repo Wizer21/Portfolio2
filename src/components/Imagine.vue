@@ -86,8 +86,6 @@ export default {
     loader.load("model/casa.glb", function ( gltf ) {
       house = scene.add( gltf.scene )    
       house = house.children[house.children.length - 1]
-      house.rotation.y = this.houseRotationY
-      house.rotation.x = this.houseRotationX
     }) 
 
     // Lantern pos = (6.5, 1.2, -4)
