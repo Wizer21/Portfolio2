@@ -35,6 +35,12 @@ export default {
     loader.load("model/tv.glb", function ( gltf ) {
       scene.add( gltf.scene )
     })
+    var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+    const material = new THREE.MeshBasicMaterial( {transparent: true, map: loader.load(require("../assets/image/cloud.png"))} );
+    var cube = new THREE.Mesh( geometry, material );
+    cube.scale.set(10, 10, 10)
+    cube.position.set(50, 50, 50)
+    scene.add( cube );
 
     const point_light = new THREE.PointLight( 0xffffff, 5, 100 )
     point_light.position.set(-10, 40, 50)
@@ -57,7 +63,33 @@ export default {
 
     // Resize
     renderer.setSize(window.innerWidth, window.innerHeight)
+    
+    // Raycaster
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+    renderer.domElement.addEventListener( 'click', raycast, false )
 
+
+    function raycast ( e ) {
+      //1. sets the mouse position with a coordinate system where the center
+      //   of the screen is the origin
+      mouse.x = ( e.clientX / window.innerWidth ) * 2 - 1
+      mouse.y = - ( e.clientY / window.innerHeight ) * 2 + 1
+
+      //2. set the picking ray from the camera position and mouse coordinates
+      raycaster.setFromCamera( mouse, camera )
+
+      //3. compute intersections
+      console.log('scene.children', scene.children)
+      let intersects = raycaster.intersectObjects( scene.children )
+      console.log('intersects', intersects)
+
+      for ( var i = 0; i < intersects.length; i++ ) {
+          console.log( intersects[ i ] ) 
+      }
+    }
+
+    // Animation
     let local = this
     const animate = function () {
       requestAnimationFrame(animate)
