@@ -1,15 +1,24 @@
 <template>
   <div>
-    <Main />
+    <Main @open_project="open_project" id="main"/>
+    <Projects id="projects"/>
   </div>
 </template>
 
 <script>
 import Main from './pages/Main.vue'
+import Projects from './pages/Projects.vue'
 
 export default {
   name: 'App',
-  components: { Main }
+  components: { Main, Projects },
+  methods:{
+    open_project(){
+      console.log('inapp')
+      //document.getElementById('projects').style.zIndex = 2
+      document.getElementById('main').style.display = "none"
+    }
+  }
 }
 </script>
 

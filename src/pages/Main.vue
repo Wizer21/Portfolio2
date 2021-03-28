@@ -1,6 +1,6 @@
 <template>
   <div data-scroll-container>    
-    <Hero data-scroll-section />
+    <Hero data-scroll-section @open_project="open_project"/>
     <Love data-scroll-section />
     <Imagine data-scroll-section id="imagine" ref="refimagine" />
     <Cloud data-scroll-section />
@@ -24,7 +24,12 @@ import LocomotiveScroll from 'locomotive-scroll';
 export default {
   name: 'Main',
   components: { Hero, Love, Imagine, Build, Cloud, Funny, Footer },
-  daat(){
+  methods: {
+    open_project(){
+      this.$emit('open_project')
+    }
+  },
+  data(){
     return {
       scroll: null
     }

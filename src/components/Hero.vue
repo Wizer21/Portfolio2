@@ -13,9 +13,9 @@
       </span>
     </div>
     <div id="hero_header">
-      <a href="" id="projects_button">
+      <p id="projects_button" @click="open_project">
         Projets
-      </a>
+      </p>
     </div>
     <div id="hero_body">
       <div id="hero_title_holder">
@@ -41,7 +41,12 @@
 
 <script>
 export default {
-  name: 'Hero',  
+  name: 'Hero', 
+  methods: {
+    open_project() {
+      this.$emit('open_project')
+    }
+  },
   mounted(){
     // Create text animation
     let color_stack =  ["e53935", "8e24aa", "3949ab", "039be5", "00897b", "7cb342", "fdd835", "fb8c00"]
@@ -145,6 +150,8 @@ export default {
 {
   position: absolute;
   margin: 3em;
+  pointer-events: all;
+  cursor: pointer;
 }
 /* Titles */
 #hero_title_holder
