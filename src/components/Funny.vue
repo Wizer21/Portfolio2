@@ -167,6 +167,9 @@ export default {
         event.offsetY < rect.bottom ||
         holded
         ){
+        if (!holded){
+          funny_word.style.transform = `translate(0px, -15px)`
+        }
         mouse_in = true
 
         if (holded){

@@ -2,7 +2,7 @@
   <div id="cloud"> 
     <div id="cloud_container" data-scroll data-scroll-speed="4">
       <img :src="require('../assets/image/cloud.png')" alt="cloud">
-      <p data-scroll data-scroll-speed="-2">
+      <p data-scroll data-scroll-speed="-4" data-scroll-offset="-500, 0">
         and
       </p>
     </div>

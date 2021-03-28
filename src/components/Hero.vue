@@ -4,6 +4,10 @@
       <span id="bubble1">      
       </span>
       <span id="bubble2">      
+        <span id="lil_holder">
+          <span id="lil_bubble">          
+          </span>
+        </span>
       </span>
       <span id="bubble3">      
       </span>
@@ -55,6 +59,8 @@ export default {
       }, latency)
       latency += 325
     }
+
+    document.getElementById('lil_holder').style.setProperty('--rotate', this.$style["rotate"])
 
     // Create bubbles
     let hero = document.getElementById('hero')
@@ -199,36 +205,47 @@ export default {
   position: absolute;
   height: 2em;
   width: 2em;
-  background-color: red;
+  background-color: #ffbe0b;
   border-radius: 50%;
   transition-duration: 600ms;
   transition-timing-function: ease-out;
-  mix-blend-mode: hard-light;
 }
 #bubble2
 {
   position: absolute;
   height: 3em;
   width: 3em;
-  background-color: rgb(116, 77, 221);
+  background-color: #ff006e;
   border-radius: 50%;
   transition-duration: 900ms;
   transition-timing-function: ease-out;
-  mix-blend-mode: hard-light;
 }
 #bubble3
 {
   position: absolute;
   height: 1em;
   width: 1em;
-  background-color: rgb(101, 113, 223);
+  background-color: #8338ec;
   border-radius: 50%;
 
   transition-duration: 300ms;
   transition-timing-function: ease-out;
-  mix-blend-mode: hard-light;
 }
-
+#lil_bubble
+{
+  position: absolute;
+  height: 1.5em;
+  width: 1.5em;
+  background-color: #3a86ff;
+  border-radius: 50%;
+  top: 2em;
+  left: 2em;
+}
+#lil_holder
+{
+  position: absolute;
+  animation: var(--rotate) 5s infinite linear;
+}
 </style>
 
 <style>
@@ -250,6 +267,17 @@ export default {
   }
   100%{    
     clip-path: polygon(100% 0, 125% 0, 150% 100%, 125% 100%);
+  }
+}
+@keyframes rotate {  
+  0%{    
+    transform: rotate(0deg) scale(1);
+  }
+  50%{    
+    transform: rotate(180deg) scale(0);
+  }
+  100%{    
+    transform: rotate(360deg) scale(1);
   }
 }
 </style>
