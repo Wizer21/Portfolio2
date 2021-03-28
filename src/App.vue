@@ -1,7 +1,7 @@
 <template>
   <div>
     <Main @open_project="open_project" id="main"/>
-    <Projects id="projects"/>
+    <Projects @exit="close_project" id="projects"/>
   </div>
 </template>
 
@@ -15,8 +15,12 @@ export default {
   methods:{
     open_project(){
       console.log('inapp')
-      //document.getElementById('projects').style.zIndex = 2
+      document.getElementById('projects').style.display = "block"
       document.getElementById('main').style.display = "none"
+    },
+    close_project(){
+      document.getElementById('projects').style.display = "none"
+      document.getElementById('main').style.display = "block"
     }
   }
 }
