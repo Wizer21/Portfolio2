@@ -8,7 +8,11 @@
           <p>{{ currentProject.title }}</p>
           <p>{{ currentProject.description }}</p>
           <p>{{ currentProject.start_date }} -> {{ currentProject.end_date }}</p>
-          <p>{{ currentProject.tech }}</p>
+          <div id="icon_stack_holder">
+            <div id="icon_holder" v-for="icon of currentProject.tech" :key="icon">
+              <img :src="require(`../assets/image/icons/${icon}.svg`)" :alt="icon" >
+            </div>
+          </div>          
         </div>
       </div>
     </div>
@@ -203,6 +207,7 @@ export default {
         // Controller connection
         if (item_name == "previous"){
           flash()
+          clicked(previous)
           local.loadedProject -= 1
           if (local.loadedProject < 0){
             local.loadedProject = local.projects.length - 1
@@ -211,6 +216,7 @@ export default {
         }
         else if (item_name == "next"){
           flash()
+          clicked(next)
           local.loadedProject += 1
           if (local.loadedProject > local.projects.length - 1){
             local.loadedProject = 0
@@ -219,18 +225,21 @@ export default {
         }
         else if (item_name == "visit"){
           flash()
+          clicked(this.visit)
           if (local.projects[local.loadedProject].page_link){
             window.open(local.projects[local.loadedProject].page_link)
           }
         }
         else if (item_name == "git"){
           flash()
+          clicked(git)
           if (local.projects[local.loadedProject].git_link){
             window.open(local.projects[local.loadedProject].git_link)
           }
         }
         else if (item_name == "power"){
           flash()
+          clicked(power)
           local.$emit('exit')
         }
       } 
@@ -240,6 +249,23 @@ export default {
       red_point_light.intensity = 10
         setTimeout(() => {        
           red_point_light.intensity = 0
+        }, 100)
+      }
+
+      function clicked(item){        
+        for (let i = 0; i < 10; i++){
+          // Down
+          setTimeout(() => {
+            item.position.y -= 0.015
+          }, i*10)
+        }
+        setTimeout(() => {
+          // Up
+          for (let i = 0; i < 10; i++){
+            setTimeout(() => {
+              item.position.y += 0.015
+            }, i*10)
+          }
         }, 100)
       }
     }
@@ -318,5 +344,22 @@ export default {
 #project_description p:nth-child(1)
 {
   font-size: 2.5em;
+}
+#icon_stack_holder
+{
+  display: flex;
+  flex-direction: row;
+}
+#icon_holder
+{
+  margin: 1em;
+  height: 2em;
+  width: 2em;
+}
+#icon_holder img
+{
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
 }
 </style>

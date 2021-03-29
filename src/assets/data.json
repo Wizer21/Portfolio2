@@ -71,7 +71,7 @@
     "start_date": "06/01/2021",
     "end_date": "16/01/2021",
     "image": "canvas.jpg",
-    "tech": ["c++", "qt", "nodejs", "lowdb"]
+    "tech": ["cplusplus", "qt", "nodejs", "lowdb"]
   },
   {
     "title": "Command Generator",
@@ -107,7 +107,7 @@
     "start_date": "02/11/2020",
     "end_date": "30/11/2020",
     "image": "swich.jpg",
-    "tech": ["c++", "qt", "mariadb"]
+    "tech": ["cplusplus", "qt", "mariadb"]
   },
   {
     "title": "Simulation Revendeur",
@@ -116,6 +116,6 @@
     "start_date": "12/10/2020",
     "end_date": "26/10/2020",
     "image": "Revendeur.jpg",
-    "tech": ["c++", "qt"]
+    "tech": ["cplusplus", "qt"]
   }
 ]
