@@ -14,7 +14,6 @@ export default {
   components: { Main, Projects },
   methods:{
     open_project(){
-      console.log('inapp')
       document.getElementById('projects').style.display = "block"
       document.getElementById('main').style.display = "none"
     },

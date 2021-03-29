@@ -1,6 +1,16 @@
 <template>
   <div id="projects">
-    <div id="scene_holder">
+    <div id="holder">
+      <div id="scene_holder">
+      </div>
+      <div id="description_holder">
+        <div id="project_description">
+          <p>{{ currentProject.title }}</p>
+          <p>{{ currentProject.description }}</p>
+          <p>{{ currentProject.start_date }} -> {{ currentProject.end_date }}</p>
+          <p>{{ currentProject.tech }}</p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -19,7 +29,10 @@ export default {
       cameraRotationY: 0,
       projects: require('../assets/data.json'),
       loadedProject: 0,
-      screen_material: null
+      screen_material: null,
+      currentProject: null,
+      visit: null,
+      visitUp: true
     }
   },
   methods: {
@@ -33,7 +46,29 @@ export default {
       setTimeout(()=> {
         this.screen_material.map = loaderTexture.load(require(`../assets/image/projects_images/${this.projects[this.loadedProject].image}`))
       }, 100)
+      
+      this.currentProject = this.projects[this.loadedProject]
+
+      if(this.projects[this.loadedProject].page_link && !this.visitUp){
+        this.visitUp = true
+        for (let i = 0; i < 10; i++){
+          setTimeout(() => {
+            this.visit.position.y += 0.1
+          }, 30 + i*30)
+        }
+      }
+      else if(!this.projects[this.loadedProject].page_link && this.visitUp){
+        this.visitUp = false
+        for (let i = 0; i < 10; i++){
+          setTimeout(() => {
+            this.visit.position.y -= 0.1
+          }, 30 + i*30)
+        }
+      }
     }
+  },
+  beforeMount(){
+    this.currentProject = this.projects[this.loadedProject]
   },
   mounted() {
     // --- Create Scene ---
@@ -65,14 +100,13 @@ export default {
     geometry = new THREE.BoxGeometry( 10, 2, 20 )
     let material = new THREE.MeshStandardMaterial({ color: 0x1f1f1f });
     let controller = new THREE.Mesh( geometry, material )
-    controller.name = "controller"
     controller.position.set(ctrlX, ctrlY, ctrlZ)
-    scene.add(controller);
+    scene.add(controller)
 
     const loaderTexture = new THREE.TextureLoader();
     // power
     geometry = new THREE.CylinderGeometry( 1, 1, 2, 20 )
-    material = new THREE.MeshBasicMaterial({ transparent: true, map: loaderTexture.load(require("../assets/image/controller/power.jpg"))})
+    material = new THREE.MeshStandardMaterial({ map: loaderTexture.load(require("../assets/image/controller/power.jpg"))})
     let power = new THREE.Mesh( geometry, material )
 
     power.name = "power"
@@ -82,7 +116,7 @@ export default {
 
     // git
     geometry = new THREE.BoxGeometry( 3, 2, 1.5 )
-    material = new THREE.MeshBasicMaterial({ map: loaderTexture.load(require("../assets/image/controller/git.jpg"))})
+    material = new THREE.MeshStandardMaterial({ map: loaderTexture.load(require("../assets/image/controller/git.jpg"))})
     let git = new THREE.Mesh( geometry, material )
     git.name = "git"
     git.position.set(ctrlX - 2, ctrlY + 0.2, ctrlZ - 5)
@@ -90,15 +124,16 @@ export default {
 
     // visit
     geometry = new THREE.BoxGeometry( 3, 2, 1.5 )
-    material = new THREE.MeshBasicMaterial({ map: loaderTexture.load(require("../assets/image/controller/visit.jpg"))})
+    material = new THREE.MeshStandardMaterial({ map: loaderTexture.load(require("../assets/image/controller/visit.jpg"))})
     let visit = new THREE.Mesh( geometry, material )
     visit.name = "visit"
     visit.position.set(ctrlX + 2, ctrlY + 0.2, ctrlZ - 5)
     scene.add(visit)
+    this.visit = visit
 
     // previous
     geometry = new THREE.CylinderGeometry( 1.5, 1.5, 2, 30 )
-    material = new THREE.MeshBasicMaterial({ map: loaderTexture.load(require("../assets/image/controller/left.jpg"))})
+    material = new THREE.MeshStandardMaterial({ map: loaderTexture.load(require("../assets/image/controller/left.jpg"))})
     let previous = new THREE.Mesh( geometry, material )
     previous.name = "previous"
     previous.position.set(ctrlX - 2, ctrlY + 0.2, ctrlZ - 2)
@@ -107,17 +142,24 @@ export default {
 
     // next
     geometry = new THREE.CylinderGeometry( 1.5, 1.5, 2, 30 )
-    material = new THREE.MeshBasicMaterial({ map: loaderTexture.load(require("../assets/image/controller/right.jpg"))})
+    material = new THREE.MeshStandardMaterial({ map: loaderTexture.load(require("../assets/image/controller/right.jpg"))})
     let next = new THREE.Mesh( geometry, material )
     next.name = "next"
     next.position.set(ctrlX + 2, ctrlY + 0.2, ctrlZ - 2)
     next.rotation.y += 1.5
     scene.add(next)
 
+    geometry = new THREE.BoxGeometry( 5, 1.8, 2, 30 )
+    material = new THREE.MeshPhongMaterial({ color: 0x911010 })
+    let red_light = new THREE.Mesh( geometry, material )
+    red_light.position.set(48.7, 4.7, 30)
+    scene.add(red_light)
+
+
     // Light
-    const redPoint_light = new THREE.PointLight( 0xff1100, 0, 100 )
-    redPoint_light.position.set(ctrlX, ctrlY, ctrlZ - 12)
-    scene.add( redPoint_light )
+    const red_point_light = new THREE.PointLight( 0xb71c1c, 0, 100 )
+    red_point_light.position.set(49, 4, 32)
+    scene.add( red_point_light )
 
     const point_light = new THREE.PointLight( 0xffffff, 3, 100 )
     point_light.position.set(-1, 40, 60)
@@ -154,48 +196,50 @@ export default {
 
       let intersects = raycaster.intersectObjects( scene.children )
       
-      let item_name = intersects[0].object.name
-      console.log("clicked on ", item_name ) 
+      if (intersects.length > 0 ){
+        let item_name = intersects[0].object.name
+        console.log("clicked on ", item_name ) 
 
-      // Controller connection
-      if (item_name == "previous"){
-        flash()
-        local.loadedProject -= 1
-        if (local.loadedProject < 0){
-          local.loadedProject = local.projects.length - 1
-        }      
-        local.displayProjet()  
-      }
-      else if (item_name == "next"){
-        flash()
-        local.loadedProject += 1
-        if (local.loadedProject > local.projects.length - 1){
-          local.loadedProject = 0
-        }      
-        local.displayProjet()  
-      }
-      else if (item_name == "visit"){
-        flash()
-        if (local.projects[local.loadedProject].page_link){
-          window.open(local.projects[local.loadedProject].page_link)
+        // Controller connection
+        if (item_name == "previous"){
+          flash()
+          local.loadedProject -= 1
+          if (local.loadedProject < 0){
+            local.loadedProject = local.projects.length - 1
+          }      
+          local.displayProjet()  
         }
-      }
-      else if (item_name == "git"){
-        flash()
-        if (local.projects[local.loadedProject].git_link){
-          window.open(local.projects[local.loadedProject].git_link)
+        else if (item_name == "next"){
+          flash()
+          local.loadedProject += 1
+          if (local.loadedProject > local.projects.length - 1){
+            local.loadedProject = 0
+          }      
+          local.displayProjet()  
         }
-      }
-      else if (item_name == "power"){
-        flash()
-        local.$emit('exit')
-      }
+        else if (item_name == "visit"){
+          flash()
+          if (local.projects[local.loadedProject].page_link){
+            window.open(local.projects[local.loadedProject].page_link)
+          }
+        }
+        else if (item_name == "git"){
+          flash()
+          if (local.projects[local.loadedProject].git_link){
+            window.open(local.projects[local.loadedProject].git_link)
+          }
+        }
+        else if (item_name == "power"){
+          flash()
+          local.$emit('exit')
+        }
+      } 
 
       // Red Light flashing
-      function flash (){
-        redPoint_light.intensity = 5
+      function flash (){        
+      red_point_light.intensity = 10
         setTimeout(() => {        
-          redPoint_light.intensity = 0
+          red_point_light.intensity = 0
         }, 100)
       }
     }
@@ -207,7 +251,6 @@ export default {
       if(camera){
         local.moveCamera(camera)
       }
-
       renderer.render(scene, camera)
     }
     animate()
@@ -231,5 +274,49 @@ export default {
   position: relative;
   height: 100vh;
   width: 100vw;
+}
+#holder
+{
+  display: grid;
+}
+#scene_holder
+{
+  position: relative;
+  grid-column: 1;
+  grid-row: 1;
+}
+#description_holder
+{
+  position: absolute;
+  grid-column: 1;
+  grid-row: 1;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: flex-end;
+  pointer-events: none;
+}
+#project_description
+{
+  width: 30em;
+  height: min-content;
+  background-color: rgb(20, 20, 20, 0.5);
+  margin: 2vw;
+  z-index: 2;
+
+  font-size: 1.5em;
+  padding: 1em;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none; 
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; 
+}
+#project_description p:nth-child(1)
+{
+  font-size: 2.5em;
 }
 </style>
