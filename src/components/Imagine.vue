@@ -27,7 +27,9 @@ export default {
       scrolling: false,
       timer: null,
       houseRotationY: 3,
-      houseRotationX: 0.3
+      houseRotationX: 0.3,
+      run: false,
+      animate: null
     }
   },
   methods: {
@@ -71,6 +73,13 @@ export default {
         house.rotation.x += house_rotationX
         house.rotation.y += house_rotationY      
       }
+    },
+    start(){
+      this.run = true
+      this.animate()
+    },
+    stop(){
+      this.run = false
     }
   },
   mounted() {
@@ -117,17 +126,18 @@ export default {
     controls.target.set(0, 1, 0)
     controls.enableZoom = false
     controls.update()
+    
+    this.animate = function () {
+      if (local.run){
+        requestAnimationFrame(local.animate)
 
-    const animate = function () {
-      requestAnimationFrame(animate)
-
-      if(camera){
-        local.rotateCamera(camera, house)        
+        if(camera){
+          local.rotateCamera(camera, house)        
+        }
+        
+        renderer.render(scene, camera)
       }
-      
-      renderer.render(scene, camera)
     }
-    animate()
   }
 }
 </script>

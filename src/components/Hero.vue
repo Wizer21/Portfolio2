@@ -124,6 +124,13 @@ export default {
         title_translate.style.clipPath = `circle(0% at 50% 50%)`
       }
     })
+
+    // Set Default pos
+    let x = (window.innerWidth * 0.35)
+    let y =  - (window.innerHeight * 0.25)
+    bubble1.style.transform = `translate(${-x}px, ${-y}px)`
+    bubble2.style.transform = `translate(${-y * 0.8}px, ${-x * 0.5}px)`
+    bubble3.style.transform = `translate(${-x / 2}px, ${-y / 2}px)`
   }
 }
 </script>
@@ -134,6 +141,7 @@ export default {
   display: flex;
   justify-content: flex-end;
   pointer-events: none;
+  width: 100vw;
 }
 #hero_body
 {
@@ -174,7 +182,7 @@ export default {
 #plane_gray
 {
   position: absolute;
-
+  
   background-color: #262626;
   transition-duration: 300ms;
   transition-timing-function: ease-out;

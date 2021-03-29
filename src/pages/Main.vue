@@ -1,7 +1,7 @@
 <template>
   <div data-scroll-container>    
     <Hero data-scroll-section @open_project="open_project"/>
-    <Love data-scroll-section />
+    <Love data-scroll-section id="love" />
     <Imagine data-scroll-section id="imagine" ref="refimagine" />
     <Cloud data-scroll-section />
     <Build data-scroll-section id="build" ref="refbuild"/>
@@ -64,15 +64,23 @@ export default {
             letter_activated = true
             this.$refs.reffunny.loadLetters()
           }
+          this.$refs.refbuild.stop()
         }        
         else if( half_win > document.getElementById('build').getBoundingClientRect().top ){
           if (!matter_activated){
             matter_activated = true
             this.$refs.refbuild.loadScene()
           }
+          this.$refs.refbuild.start()
+          this.$refs.refimagine.stop()
         }    
         else if( window.innerHeight > document.getElementById('imagine').getBoundingClientRect().top ){
           this.$refs.refimagine.updateScene(event)
+          this.$refs.refbuild.stop()
+          this.$refs.refimagine.start()
+        }
+        else if( window.innerHeight > document.getElementById('love').getBoundingClientRect().top ){
+          this.$refs.refimagine.stop()
         }
 
         updating = true

@@ -29,14 +29,18 @@ export default {
     return {
       angleX: 0.5,
       angleY: 0.5,
-      cameraRotationX: 0,
-      cameraRotationY: 0,
-      projects: require('../assets/data.json'),
+      screenOffset: -0.2,
+      cameraRotationX: 3,
+      cameraRotationY: -1,
+      projects: require('../assets/data.json').reverse(),
       loadedProject: 0,
       screen_material: null,
       currentProject: null,
       visit: null,
-      visitUp: true
+      visitUp: true,
+      blockMouseControl: true,
+      run: false,
+      animate: null
     }
   },
   methods: {
@@ -69,9 +73,39 @@ export default {
           }, 30 + i*30)
         }
       }
-    }
+    },
+    lookAway(){
+      document.getElementById('description_holder').style.opacity = 0
+      this.blockMouseControl = true
+      for (let i = 0; i < 30 ; i++ ){
+        setTimeout(() => {          
+          this.cameraRotationY += (-1 - this.cameraRotationY) * 0.1
+          this.cameraRotationX += (3 - this.cameraRotationX) * 0.1
+        }, i * 66.66)
+      }   
+      setTimeout(() => {
+        this.run = false
+      }, 2000)   
+    }, 
+    lookTv(){
+      this.blockMouseControl = true
+      this.run = true
+      this.animate()
+
+      for (let i = 0; i < 30 ; i++ ){
+        setTimeout(() => {          
+          this.cameraRotationY += (0 - this.cameraRotationY) * 0.1
+          this.cameraRotationX += (this.screenOffset - this.cameraRotationX) * 0.1
+        }, i * 66.66)
+      }      
+      setTimeout(() => {
+        document.getElementById('description_holder').style.opacity = 1
+        this.blockMouseControl = false        
+      }, 2000)
+    }     
   },
   beforeMount(){
+    this.loadedProject = this.projects.length - 1
     this.currentProject = this.projects[this.loadedProject]
   },
   mounted() {
@@ -79,6 +113,17 @@ export default {
     const three_scene = document.getElementById('scene_holder')
     let scene = new THREE.Scene()
     let local = this
+
+    // Camera
+    const camera = new THREE.PerspectiveCamera(
+      75,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      100
+    )
+    camera.position.set(20, 40, 105)
+    camera.rotation.x = this.cameraRotationY
+    camera.rotation.y = this.cameraRotationX
 
     // -- Load 3D elements --
     // Tv
@@ -100,6 +145,14 @@ export default {
     let ctrlX = 30
     let ctrlY = 30
     let ctrlZ = 100
+
+    if (window.innerWidth < 1000){
+      ctrlX = 20
+      camera.position.set(20, 40, 110)
+      this.screenOffset = 0
+      this.angleY = 0.8
+      this.angleX = 0.8
+    }
 
     geometry = new THREE.BoxGeometry( 10, 2, 20 )
     let material = new THREE.MeshStandardMaterial({ color: 0x1f1f1f });
@@ -159,7 +212,6 @@ export default {
     red_light.position.set(48.7, 4.7, 30)
     scene.add(red_light)
 
-
     // Light
     const red_point_light = new THREE.PointLight( 0xb71c1c, 0, 100 )
     red_point_light.position.set(49, 4, 32)
@@ -168,16 +220,6 @@ export default {
     const point_light = new THREE.PointLight( 0xffffff, 3, 100 )
     point_light.position.set(-1, 40, 60)
     scene.add( point_light )
-
-    // Camera
-    const camera = new THREE.PerspectiveCamera(
-      75,
-      window.innerWidth / window.innerHeight,
-      0.1,
-      100
-    )
-    camera.position.set(20, 40, 105)
-    camera.rotation.y = -0.2
 
     // Render
     let renderer = new THREE.WebGLRenderer({ antialias: true })
@@ -202,7 +244,6 @@ export default {
       
       if (intersects.length > 0 ){
         let item_name = intersects[0].object.name
-        console.log("clicked on ", item_name ) 
 
         // Controller connection
         if (item_name == "previous"){
@@ -271,24 +312,27 @@ export default {
     }
 
     // Animation
-    const animate = function () {
-      requestAnimationFrame(animate)
+    this.animate = function () {
+      if (local.run){
+        requestAnimationFrame(local.animate)
 
-      if(camera){
-        local.moveCamera(camera)
+        if(camera){
+          local.moveCamera(camera)
+        }
+        renderer.render(scene, camera)
       }
-      renderer.render(scene, camera)
     }
-    animate()
 
     // --- Camera animation  ---
     let projects = document.getElementById('projects')
     projects.addEventListener('mousemove', event => {
-      let ratioX = window.innerWidth / this.angleX
-      let ratioY = window.innerHeight / this.angleY
+      if (!this.blockMouseControl){
+        let ratioX = window.innerWidth / this.angleX
+        let ratioY = window.innerHeight / this.angleY
 
-      this.cameraRotationX = -0.2 + (((window.innerWidth - event.offsetX) / ratioX) - this.angleX / 2)
-      this.cameraRotationY = ((window.innerHeight - event.offsetY) / ratioY) - this.angleY / 2
+        this.cameraRotationX = this.screenOffset + (((window.innerWidth - event.offsetX) / ratioX) - this.angleX / 2)
+        this.cameraRotationY = ((window.innerHeight - event.offsetY) / ratioY) - this.angleY / 2
+      }
     })
   }
 }
@@ -297,7 +341,7 @@ export default {
 <style scoped>
 #projects
 {
-  position: relative;
+  position: absolute;
   height: 100vh;
   width: 100vw;
 }
@@ -322,12 +366,14 @@ export default {
   display: flex;
   justify-content: flex-end;
   pointer-events: none;
+  opacity: 0;
+  transition: opacity 500ms;
 }
 #project_description
 {
   width: 30em;
   height: min-content;
-  background-color: rgb(20, 20, 20, 0.5);
+  background-color: rgb(20, 20, 20, 0.8);
   margin: 2vw;
   z-index: 2;
 
@@ -361,5 +407,22 @@ export default {
   height: 100%;
   width: 100%;
   object-fit: contain;
+}
+@media screen and (max-width: 1000px) {
+  #project_description
+  {
+    width: 100%;
+    margin: 0px;
+  }
+  #project_description p
+  {
+    margin: 10px;
+  }
+  #icon_holder
+  {
+    margin: 10px;
+    height: 1.5em;
+    width: 1.5em;
+  }    
 }
 </style>

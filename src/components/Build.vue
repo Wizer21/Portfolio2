@@ -17,7 +17,10 @@ export default {
     return {
       World: Matter.World,
       Bodies: Matter.Bodies,
-      engine: null
+      engine: null,
+      Render: Matter.Render,
+      render_2d: null,
+      running: false
     }
   },
   methods: {
@@ -30,8 +33,8 @@ export default {
       build_title.dataset.scrollSpeed = "-10"
       
       // create leaves
-      for (let i = 0; i < window.innerWidth/50; i++){
-        let leaf = this.Bodies.rectangle(dice(0, window.innerWidth), dice(0, window.innerHeight), 40, 40, {        
+      for (let i = 0; i < window.innerWidth/100; i++){
+        let leaf = this.Bodies.rectangle(dice(0, window.innerWidth), dice(0, window.innerHeight), 50, 50, {        
           frictionAir: 0.2,
         })
         leaf.render.sprite.texture = require('../assets/image/leaf.png')
@@ -40,19 +43,30 @@ export default {
       function dice(min, max){
         return Math.random() * (max - min) + min
       }
+    },
+    start(){      
+      if (!this.running){
+        this.running = true
+        this.Render.run(this.render_2d)     
+      }
+    },
+    stop(){
+      if (this.running){
+        this.running = false
+        this.Render.stop(this.render_2d)   
+      }
     }
   },
   mounted(){
     // module aliases
-    var Engine = Matter.Engine,
-    Render = Matter.Render;
+    var Engine = Matter.Engine
 
     this.engine = Engine.create()
 
     let container = document.getElementById("matter_scene")  
     
     // create a renderer
-    let render_2d = Render.create({
+    this.render_2d = this.Render.create({
     element: container,
     engine: this.engine,
     options: {
@@ -65,7 +79,7 @@ export default {
     let ground = this.Bodies.rectangle( -200, window.innerHeight, window.innerWidth * 2 + 800, 50, { isStatic: true })
     ground.render.visible = false
     // mouse
-    let mouse = Matter.Mouse.create(render_2d.canvas)
+    let mouse = Matter.Mouse.create(this.render_2d.canvas)
     let mouse_Constraint = Matter.MouseConstraint.create(this.engine, {
       mouse: mouse,
       constraint: {
@@ -73,7 +87,7 @@ export default {
       }
     })
     
-    render_2d.mouse = mouse
+    this.render_2d.mouse = mouse
     // Enable scroll page over the scene
     mouse.element.removeEventListener("mousewheel", mouse_Constraint.mouse.mousewheel)
     mouse.element.removeEventListener("DOMMouseScroll", mouse_Constraint.mouse.mousewheel)
@@ -81,7 +95,7 @@ export default {
     this.World.add(this.engine.world, [ground, mouse_Constraint])
     // run the engine
     Engine.run(this.engine)
-    Render.run(render_2d)
+    this.Render.run(this.render_2d)
   }
 }
 </script>

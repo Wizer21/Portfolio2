@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div id="app_container">
     <Main @open_project="open_project" id="main"/>
-    <Projects @exit="close_project" id="projects"/>
+    <Projects @exit="close_project" id="projects" ref="projectsref"/>
   </div>
 </template>
 
@@ -14,12 +14,21 @@ export default {
   components: { Main, Projects },
   methods:{
     open_project(){
-      document.getElementById('projects').style.display = "block"
-      document.getElementById('main').style.display = "none"
+      let projects = document.getElementById('projects')
+      let main = document.getElementById('main')
+
+      projects.style.display = "block"
+      this.$refs.projectsref.lookTv()
+      main.style.transform = "translate(-100vw, 100vh) skew(25deg, 25deg)"
+      main.style.opacity = "0"
     },
     close_project(){
-      document.getElementById('projects').style.display = "none"
-      document.getElementById('main').style.display = "block"
+      let main = document.getElementById('main')
+
+      main.style.display = "block"
+      main.style.transform = "translate(0vw, 0vh) skew(0deg, 0deg)"
+      this.$refs.projectsref.lookAway()
+      main.style.opacity = "1"
     }
   }
 }
@@ -41,8 +50,6 @@ body
   margin: 0px;
   color: rgb(219, 219, 211);
   font-family: 'Lexend', sans-serif;
-
-  background-color: #262626;
 }
 #app
 {
@@ -52,5 +59,25 @@ a
 {
   color: rgb(219, 219, 211);
   text-decoration: none;
+}
+#app_container
+{
+  display: grid;
+}
+#projects
+{
+  display: none;
+  grid-column: 1;
+  grid-row: 1;
+  transition-duration: 3500ms;
+}
+#main
+{
+  grid-column: 1;
+  grid-row: 1;
+  transition-duration: 3500ms;
+  z-index: 3;
+
+  background-color: #262626;
 }
 </style>
