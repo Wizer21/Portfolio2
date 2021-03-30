@@ -8,8 +8,8 @@
         <h2 id="love_text_placeholder">
           love
         </h2>
-        <div id="div_slider" data-scroll data-scroll-speed="10" data-scroll-direction="horizontal">
-          <h2 id="love_text" data-scroll data-scroll-speed="-10" data-scroll-direction="horizontal">
+        <div id="div_slider" data-scroll data-scroll-speed="3" data-scroll-direction="horizontal">
+          <h2 id="love_text" data-scroll data-scroll-speed="-3" data-scroll-direction="horizontal">
             love
           </h2>
         </div>
@@ -50,6 +50,7 @@ export default {
 #love_holder
 { 
   display: grid;
+  font-family: saonara;
 }
 #love_text_placeholder
 {

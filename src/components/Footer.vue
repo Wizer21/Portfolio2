@@ -1,7 +1,10 @@
 <template>
   <div id="footer">
-    <p id="text">
-      If you want me to join your team you can contact me at  
+    <p id="footer_text_p1" class="footer_text">
+      You want me to join your team ?
+    </p>
+    <p id="footer_text_p2" class="footer_text">
+      Contact me !
     </p>
     <div class="holder" id="gmail_holder">
       <h2>
@@ -43,7 +46,7 @@ export default {
         child.style.clipPath = `circle(0% at ${x_percent}% ${y_percent}%)`
 
         setTimeout(() => {          
-          child.style.transitionDuration = "500ms"
+          child.style.transitionDuration = "1000ms"
           child.style.clipPath = `circle(150% at ${x_percent}% ${y_percent}%)`
         }, 50)
       })
@@ -67,15 +70,27 @@ export default {
 <style scoped>
 #footer
 {
-  height: 100vh;
+  margin: 10vh 0;
+
+  width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
-#text
+.footer_text
 {
-  font-size: 2vw;
+  font-size: 2.5vw;
+  margin: 0px;
+}
+#footer_text_p1
+{  
+  margin-right: 25vw;
+}
+#footer_text_p2
+{
+  font-size: 5vw;
+  margin-left: 10vw;
 }
 .holder
 {
@@ -83,8 +98,6 @@ export default {
   align-items: center;
   justify-content: center;
   color: #1a1a1a;
-  transition-duration: 1000ms;
-
 }
 #gmail_holder
 {

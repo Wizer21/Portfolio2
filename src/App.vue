@@ -36,6 +36,10 @@ export default {
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100&display=swap');
+@font-face {
+    font-family: saonara;
+    src: url("../src/assets/font/saonara.otf");
+}
 ::-moz-selection {
   color: rgb(44, 44, 44);
   background: rgb(236, 236, 236);

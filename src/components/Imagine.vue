@@ -75,11 +75,17 @@ export default {
       }
     },
     start(){
-      this.run = true
-      this.animate()
+      if (!this.run){
+        console.log('run')
+        this.run = true
+        this.animate()        
+      }
     },
     stop(){
-      this.run = false
+      if(this.run){
+        console.log('false')
+        this.run = false
+      }
     }
   },
   mounted() {

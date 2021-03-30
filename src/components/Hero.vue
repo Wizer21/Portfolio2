@@ -32,7 +32,7 @@
         <div id="creative_stack">
         </div>
         <p>
-          front end
+          front-end
         </p>
       </div>
     </div>
@@ -151,7 +151,6 @@ export default {
   flex-direction: column;
 
   width: 100vw;
-  height: 100vh;
   pointer-events: none;
 }
 #projects_button
@@ -165,6 +164,7 @@ export default {
 #hero_title_holder
 {
   display: grid;
+  margin-right: 20vw;
 }
 #hero_title_holder p
 {  
@@ -192,6 +192,8 @@ export default {
 {  
   display: flex;
   flex-direction: row;
+  font-family: saonara;
+  margin-left: 20vw;
 }
 #sub_title p
 {
@@ -211,8 +213,8 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
 }
 #bubble1

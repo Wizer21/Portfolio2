@@ -204,11 +204,11 @@ export default {
 <style scoped>
 #funny
 {
-  height: 100vh;
   width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 5vh 0;
 }
 #title_holder
 {
