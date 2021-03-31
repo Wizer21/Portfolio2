@@ -5,14 +5,21 @@
       </div>
       <div id="description_holder">
         <div id="project_description">
-          <p>{{ currentProject.title }}</p>
-          <p>{{ currentProject.description }}</p>
-          <p>{{ currentProject.start_date }} -> {{ currentProject.end_date }}</p>
-          <div id="icon_stack_holder">
-            <div id="icon_holder" v-for="icon of currentProject.tech" :key="icon">
-              <img :src="require(`../assets/image/icons/${icon}.svg`)" :alt="icon" >
-            </div>
-          </div>          
+          <p id="description_title">
+            {{ currentProject.title }}
+          </p>      
+          <div id="description_pannel">
+            <p>{{ currentProject.description }}</p>
+            <p>{{ currentProject.start_date }} -> {{ currentProject.end_date }}</p>
+            <div id="icon_stack_holder">
+              <div id="icon_holder" v-for="icon of currentProject.tech" :key="icon">
+                <img :src="require(`../assets/image/icons/${icon}.svg`)" :alt="icon" >
+              </div>
+            </div>   
+          </div> 
+          <div id="arrow_holder">
+            <img :src="require('../assets/image/chevron-up.png')" alt="arrow" @click="togglePanel" id="arrow_img">
+          </div>
         </div>
       </div>
     </div>
@@ -40,7 +47,8 @@ export default {
       visitUp: true,
       blockMouseControl: true,
       run: false,
-      animate: null
+      animate: null,
+      panelOpen: true
     }
   },
   methods: {
@@ -102,7 +110,27 @@ export default {
         document.getElementById('description_holder').style.opacity = 1
         this.blockMouseControl = false        
       }, 2000)
-    }     
+    },
+    togglePanel(){
+      let description_pannel = document.getElementById('description_pannel')
+      let arrow_img = document.getElementById('arrow_img')
+      if(this.panelOpen){
+        this.panelOpen = false
+        description_pannel.style.transform = "translateY(-100%)"
+        description_pannel.style.opacity = "0"
+        description_pannel.style.position = "absolute"
+
+        arrow_img.src = require('../assets/image/chevron-down.png')
+      }
+      else{
+        this.panelOpen = true
+        description_pannel.style.transform = "translateY(0vh)"
+        description_pannel.style.opacity = "1"
+        description_pannel.style.position = "relative"
+
+        arrow_img.src = require('../assets/image/chevron-up.png')
+      }
+    }
   },
   beforeMount(){
     this.loadedProject = this.projects.length - 1
@@ -387,9 +415,15 @@ export default {
   -ms-user-select: none;
   user-select: none; 
 }
-#project_description p:nth-child(1)
+#description_title
 {
-  font-size: 2.5em;
+  font-size: 2.5em;  
+  margin: 0px;
+}
+#description_pannel
+{
+  font-size: 1.5em;  
+  transition-duration: 500ms;
 }
 #icon_stack_holder
 {
@@ -407,6 +441,19 @@ export default {
   height: 100%;
   width: 100%;
   object-fit: contain;
+}
+#arrow_holder
+{
+  height: 2em;
+  width: 2em;
+  margin-left: auto;
+  pointer-events: all;
+}
+#arrow_holder img 
+{
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
 }
 @media screen and (max-width: 1000px) {
   #project_description
