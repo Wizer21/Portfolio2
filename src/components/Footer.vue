@@ -1,13 +1,16 @@
 <template>
   <div id="footer">
+    <p id="footer_text_p0" data-scroll data-scroll-speed="1" data-scroll-direction="horizontal" >
+      So
+    </p>
     <p id="footer_text_p1" class="footer_text">
       You want me to join your team ?
     </p>
-    <p id="footer_text_p2" class="footer_text">
+    <p id="footer_text_p2" class="footer_text" data-scroll data-scroll-speed="-2" data-scroll-direction="horizontal" >
       Contact me !
     </p>
     <div class="holder" id="gmail_holder">
-      <a href="mailto:simon.tessier8@gmail.com?subject=Front-end&body=Hello!">
+      <a href="mailto:simon.tessier8@gmail.com?subject=We want you!&body=After discovering your amazing portfolio, we decided to invite you to join us!" target="_blank">
         <h2>
           Email
         </h2>
@@ -17,7 +20,7 @@
       </a>
     </div>
     <div class="holder" id="twitter_holder">
-      <a href="https://twitter.com/Simon349_">
+      <a href="https://twitter.com/Simon349_" target="_blank">
         <h2>
           Twitter
         </h2>
@@ -52,7 +55,7 @@ export default {
         setTimeout(() => {          
           child.style.transitionDuration = "1000ms"
           child.style.clipPath = `circle(150% at ${x_percent}% ${y_percent}%)`
-        }, 10)
+        }, 0)
       })
     }
     for (let holder of holders){
@@ -74,7 +77,7 @@ export default {
 <style scoped>
 #footer
 {
-  margin: 15vh 0;
+  margin-bottom: 15vh;
 
   width: 100vw;
   display: flex;
@@ -87,9 +90,16 @@ export default {
   font-size: 2.5vw;
   margin: 0px;
 }
+#footer_text_p0
+{  
+  font-size: 7vw;
+  margin: 0px;
+  margin-left: 30vw;
+}
 #footer_text_p1
 {  
   margin-right: 25vw;
+  margin-bottom: 10vh;
 }
 #footer_text_p2
 {

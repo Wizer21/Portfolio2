@@ -215,6 +215,7 @@ export default {
   display: flex;
   flex-direction: column;
   pointer-events: none;
+  margin-bottom: 15vh;
 }
 #funny_holder
 {
@@ -277,11 +278,11 @@ export default {
 }
 @media screen and (max-width: 1000px){
   #funny_word{
-    font-size: 20vw;
+    font-size: 8em;
   }
   .funny_color
   {
-    font-size: 17vh;
+    font-size: 12.1em;
   }
 }
 </style>

@@ -33,7 +33,7 @@ export default {
       build_title.dataset.scrollSpeed = "-10"
       
       // create leaves
-      for (let i = 0; i < window.innerWidth/60; i++){
+      for (let i = 0; i < window.innerWidth/80; i++){
         let leaf = this.Bodies.rectangle(dice(0, window.innerWidth), dice(0, window.innerHeight), 50, 50, {        
           frictionAir: 0.2,
         })
