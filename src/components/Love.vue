@@ -15,7 +15,7 @@
         </div>
       </div>
     </div>
-    <p id="is_text">
+    <p id="is_text" data-scroll data-scroll-speed="2" data-scroll-direction="horizontal">
       is
     </p>
   </div>
@@ -78,5 +78,11 @@ export default {
   margin-top: 2vh;
   margin-bottom: 0px;
   margin-left: 50vw
+}
+@media screen and (max-width: 1000px){
+  #love
+  {
+    margin: 10vh 0;
+  }
 }
 </style>

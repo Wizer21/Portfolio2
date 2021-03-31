@@ -39,8 +39,16 @@ export default {
 #cloud_container p
 {
   position: relative;
-  font-size: 6vw; 
+  font-size: 10vw; 
   margin: 2em;
-  top: -95vh;
+  top: -125vh;
+}
+@media screen and (max-width: 1000px){
+  #cloud_container p
+  {
+    font-size: 20vw; 
+    top: -105vh;
+    margin: 1em;
+  }
 }
 </style>

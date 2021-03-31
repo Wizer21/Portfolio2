@@ -9,10 +9,10 @@
     <div class="holder" id="gmail_holder">
       <a href="mailto:simon.tessier8@gmail.com?subject=Front-end&body=Hello!">
         <h2>
-          Gmail
+          Email
         </h2>
         <h2 id="gmail">
-          Gmail
+          Email
         </h2>
       </a>
     </div>
@@ -74,7 +74,7 @@ export default {
 <style scoped>
 #footer
 {
-  margin: 10vh 0;
+  margin: 15vh 0;
 
   width: 100vw;
   display: flex;
@@ -127,5 +127,23 @@ export default {
 {
   color: #1da1f2;
   clip-path: circle(0% at 0% 0%)
+}
+@media screen and (max-width: 1000px){
+  .footer_text
+  {
+    font-size: 4.5vw;
+  }
+  #footer_text_p2
+  {
+    font-size: 8vw;
+  }
+  .holder
+  {
+    margin: 5vw 1vw;
+  }
+  .holder a h2
+  {
+    font-size: 18vw;    
+  }
 }
 </style>

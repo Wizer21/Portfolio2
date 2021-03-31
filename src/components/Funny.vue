@@ -96,16 +96,16 @@ export default {
 
         // Direction
         if(direction == 0){
-          elem.style.transform = "translate(25vw, 0vw)"          
+          elem.style.transform = "translate(40vw, 0vw)"          
         }
         else if (direction == 1){          
-          elem.style.transform = "translate(0vw, 25vw)"   
+          elem.style.transform = "translate(0vw, 40vw)"   
         }
         else if (direction == 2){          
-          elem.style.transform = "translate(-25vw, 0vw)"   
+          elem.style.transform = "translate(-40vw, 0vw)"   
         }
         else if (direction == 3){          
-          elem.style.transform = "translate(0vw, -25vw)"   
+          elem.style.transform = "translate(0vw, -40vw)"   
           direction = -1
         }
         direction += 1
@@ -274,5 +274,14 @@ export default {
   user-select: none; 
 
   pointer-events: none;
+}
+@media screen and (max-width: 1000px){
+  #funny_word{
+    font-size: 20vw;
+  }
+  .funny_color
+  {
+    font-size: 17vh;
+  }
 }
 </style>

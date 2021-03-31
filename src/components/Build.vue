@@ -28,12 +28,12 @@ export default {
       // Title animation
       let build_title = document.getElementById('build_title')
       build_title.style.opacity = "1"
-      build_title.style.transform = "translateY(10vh)"
+      build_title.style.transform = "translateY(0vh)"
       build_title.dataset.scroll = ""
       build_title.dataset.scrollSpeed = "-10"
       
       // create leaves
-      for (let i = 0; i < window.innerWidth/100; i++){
+      for (let i = 0; i < window.innerWidth/60; i++){
         let leaf = this.Bodies.rectangle(dice(0, window.innerWidth), dice(0, window.innerHeight), 50, 50, {        
           frictionAir: 0.2,
         })
@@ -112,10 +112,14 @@ export default {
 {
   font-size: 35vw;
   text-align: center;
-  transform: translateY(-30vh);
+  transform: translateY(-50vh);
   transition-duration: 500ms;
-  margin: 0px;
   opacity: 0;
+  height: min-content;
+
+  margin: 0px;
+  margin-top: auto;
+  margin-bottom: 10vh;
   
   grid-column: 1;
   grid-row: 1;
@@ -125,5 +129,11 @@ export default {
 {
   grid-column: 1;
   grid-row: 1;
+}
+@media screen and (max-width: 1000px){
+  #build_title
+  {
+    margin-bottom: 30vh;
+  }
 }
 </style>

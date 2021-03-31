@@ -79,6 +79,12 @@ export default {
     let plane_gray = document.getElementById('plane_gray')
     let title_translate = document.getElementById('title_translate')
 
+    // Button Hover
+    let projects_button = document.getElementById('projects_button')
+    let button_background = document.getElementById('button_background')
+
+    let button_rect = projects_button.getBoundingClientRect()
+
     let last_x = 0
     let last_y = 0
 
@@ -125,13 +131,6 @@ export default {
         title_translate.style.transform = `translate(0px, 0px)`
         title_translate.style.clipPath = `circle(0% at 50% 50%)`
       }
-
-      // Button Hover
-      let projects_button = document.getElementById('projects_button')
-      let button_background = document.getElementById('button_background')
-
-      let button_rect = projects_button.getBoundingClientRect()
-
       if (
         button_rect.left < event.offsetX && 
         event.offsetX < button_rect.right &&
@@ -319,6 +318,21 @@ export default {
   position: absolute;
   animation: var(--rotate) 5s infinite linear;
 }
+@media screen and (max-width: 1000px){
+  #projects_button
+  {
+    margin: 1em;
+    font-size: 1.5em;
+  }
+  #hero_body
+  {
+    margin: 15vh 0vh;
+  }
+  #sub_title p
+  {    
+    font-size: 10vw;
+  }
+}
 </style>
 
 <style>
@@ -330,6 +344,12 @@ export default {
   font-size: 6vw;
   padding: 0.5em;
   margin: 0px;
+}
+@media screen and (max-width: 1000px){
+  #creative_stack p
+  {
+    font-size: 10vw;
+  }
 }
 </style>
 
