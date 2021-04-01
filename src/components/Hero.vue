@@ -212,6 +212,8 @@ export default {
 
   grid-column: 1;
   grid-row: 1;
+
+  transition-duration: 500ms;
 }
 /* Titles */
 #hero_title_holder

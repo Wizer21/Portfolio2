@@ -1,5 +1,13 @@
 <template>
   <div id="projects">
+    <div id="message">
+      <p>
+        Remote control
+      </p>    
+      <div id="arrow">
+        <img :src="require(`../assets/image/chevron-down.png`)" :alt="icon" >
+      </div>
+    </div>
     <div id="holder">
       <div id="scene_holder">
       </div>
@@ -116,6 +124,18 @@ export default {
         document.getElementById('description_holder').style.opacity = 1
         this.blockMouseControl = false        
       }, 2000)
+
+      // Set Ini animation
+      let message = document.getElementById('message')
+      message.style.display = "block"
+      message.style.animation = ""
+      setTimeout(() => {
+        message.style.animation = `${this.$style["slide"]} 4s linear forwards`
+
+        setTimeout(() => {
+          message.style.display = "none"
+        }, 8000)
+      }, 1000)
     },
     togglePanel(){
       this.checkTouchScreen()
@@ -124,7 +144,7 @@ export default {
       let arrow_img = document.getElementById('arrow_img')
       if(this.panelOpen){
         this.panelOpen = false
-        description_pannel.style.transform = "translateY(-100%)"
+        description_pannel.style.transform = "translateY(-20%)"
         description_pannel.style.opacity = "0"
         description_pannel.style.position = "absolute"
 
@@ -538,6 +558,38 @@ export default {
   height: 100%;
   opacity: 0.4;
 }
+#message
+{
+  position: absolute;
+  height: 50vh;
+  width: 5px;
+  margin: 20vw;
+  margin-top: 10vw;
+  background-color: white;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0;
+
+  transition-duration: 500ms;
+}
+#message p
+{
+  font-size: 2em;
+  margin: 1em;
+  margin-top: 7em;
+}
+#arrow
+{  
+  margin: 1em;
+  height: 3em;
+  width: 3em;
+}
+#arrow img
+{
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
 @media screen and (max-width: 1000px) {
   #project_description
   {
@@ -558,5 +610,23 @@ export default {
   {
     font-size: 0.7em;
   }
+}
+</style>
+
+<style module>
+@keyframes slide {
+  0%{
+    transform: translateY(-20vh);
+    opacity: 0;
+  }
+  50%{
+    transform: translateY(0);
+    opacity: 1;
+
+  }
+  100%{
+    transform: translateY(20vh);
+    opacity: 0;
+  }  
 }
 </style>
