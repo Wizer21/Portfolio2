@@ -278,11 +278,11 @@ export default {
 }
 @media screen and (max-width: 1000px){
   #funny_word{
-    font-size: 8em;
+    font-size: 22vw;
   }
   .funny_color
   {
-    font-size: 12.1em;
+    font-size: 33.5vw;
   }
 }
 </style>

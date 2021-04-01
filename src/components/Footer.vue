@@ -141,11 +141,16 @@ export default {
 @media screen and (max-width: 1000px){
   .footer_text
   {
-    font-size: 4.5vw;
+    font-size: 5.5vw;
+    margin-left: 5vw;
+  }
+  #footer_text_p0
+  {  
+    font-size: 12vw;
   }
   #footer_text_p2
   {
-    font-size: 8vw;
+    font-size: 12vw;
   }
   .holder
   {

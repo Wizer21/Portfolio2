@@ -12,8 +12,13 @@
             <p>{{ currentProject.description }}</p>
             <p>{{ currentProject.start_date }} -> {{ currentProject.end_date }}</p>
             <div id="icon_stack_holder">
-              <div id="icon_holder" v-for="icon of currentProject.tech" :key="icon">
-                <img :src="require(`../assets/image/icons/${icon}.svg`)" :alt="icon" >
+              <div class="techno_holder" v-for="icon of currentProject.tech" :key="icon">                
+                <div class="icon_holder">
+                  <img :src="require(`../assets/image/icons/${icon}.svg`)" :alt="icon" >
+                </div>
+                <p>
+                  {{ icon }}
+                </p>
               </div>
             </div>   
           </div> 
@@ -142,6 +147,23 @@ export default {
           this.blockMouseControl = false
         }, 50)
       }
+    },
+    setEvents(){
+      setTimeout(() => {
+        let techno_holder = document.getElementsByClassName('techno_holder')
+        for (let holder of techno_holder){
+          holder.addEventListener('mouseenter', () => {
+            this.blockMouseControl = true
+            holder.children[1].style.transform = "translateY(2em)"
+            holder.children[1].style.opacity = "1"
+          }) 
+          holder.addEventListener('mouseleave', () => {
+            this.blockMouseControl = false
+            holder.children[1].style.transform = "translateY(0em)"
+            holder.children[1].style.opacity = "0"
+          })
+        }
+      }, 50)
     }
   },
   beforeMount(){
@@ -294,7 +316,8 @@ export default {
           if (local.loadedProject < 0){
             local.loadedProject = local.projects.length - 1
           }      
-          local.displayProjet()  
+          local.displayProjet() 
+          local.setEvents() 
         }
         else if (item_name == "next"){
           buttonEvent()
@@ -304,6 +327,7 @@ export default {
             local.loadedProject = 0
           }      
           local.displayProjet()  
+          local.setEvents() 
         }
         else if (item_name == "visit"){
           buttonEvent()
@@ -374,12 +398,10 @@ export default {
     ( navigator.maxTouchPoints > 0 ) ||
     ( navigator.msMaxTouchPoints > 0 )
 
-    console.log('this.usingTouchScreen', this.usingTouchScreen);
-
     // --- Camera animation  ---
     let projects = document.getElementById('projects')
     projects.addEventListener('mousemove', event => {
-      let timeout = 0
+      let timeout = 10
       if (this.usingTouchScreen){
         timeout = 25
       }
@@ -392,7 +414,18 @@ export default {
           this.cameraRotationY = ((window.innerHeight - event.offsetY) / ratioY) - this.angleY / 2
         }
       }, timeout)      
-    })    
+    })  
+    
+    // BlockMouseHover
+    let arrow_holder = document.getElementById('arrow_holder')
+    arrow_holder.addEventListener('mouseenter', () => {
+      this.blockMouseControl = true
+    }) 
+    arrow_holder.addEventListener('mouseleave', () => {
+      this.blockMouseControl = false
+    })
+
+    this.setEvents()
   }
 }
 </script>
@@ -460,18 +493,36 @@ export default {
 {
   display: flex;
   flex-direction: row;
+  justify-content: flex-start;
 }
-#icon_holder
+.icon_holder
 {
-  margin: 1em;
-  height: 2em;
-  width: 2em;
+  margin: 0.8em;
+  height: 1.5em;
+  width: 1.5em;
+  pointer-events: all;
 }
-#icon_holder img
+.icon_holder img
 {
   height: 100%;
   width: 100%;
   object-fit: contain;
+}
+.techno_holder
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-direction: column;
+}
+.techno_holder p
+{
+  position: absolute;
+  text-align: center;
+
+  opacity: 0;
+  transition-duration: 500ms;
 }
 #arrow_holder
 {
@@ -485,6 +536,7 @@ export default {
   object-fit: contain;
   width: 100%;
   height: 100%;
+  opacity: 0.4;
 }
 @media screen and (max-width: 1000px) {
   #project_description
@@ -496,11 +548,15 @@ export default {
   {
     margin: 10px;
   }
-  #icon_holder
+  .icon_holder
   {
     margin: 10px;
-    height: 1.5em;
-    width: 1.5em;
+    height: 1em;
+    width: 1em;
   }    
+  .techno_holder p
+  {
+    font-size: 0.7em;
+  }
 }
 </style>
