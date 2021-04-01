@@ -48,7 +48,8 @@ export default {
       blockMouseControl: true,
       run: false,
       animate: null,
-      panelOpen: true
+      panelOpen: true,
+      usingTouchScreen: true
     }
   },
   methods: {
@@ -112,6 +113,8 @@ export default {
       }, 2000)
     },
     togglePanel(){
+      this.checkTouchScreen()
+      
       let description_pannel = document.getElementById('description_pannel')
       let arrow_img = document.getElementById('arrow_img')
       if(this.panelOpen){
@@ -129,6 +132,15 @@ export default {
         description_pannel.style.position = "relative"
 
         arrow_img.src = require('../assets/image/chevron-up.png')
+      }
+    },    
+    checkTouchScreen(){
+      if (this.usingTouchScreen){
+        this.blockMouseControl = true
+
+        setTimeout(() => {
+          this.blockMouseControl = false
+        }, 50)
       }
     }
   },
@@ -275,8 +287,9 @@ export default {
 
         // Controller connection
         if (item_name == "previous"){
-          flash()
+          buttonEvent()
           clicked(previous)
+
           local.loadedProject -= 1
           if (local.loadedProject < 0){
             local.loadedProject = local.projects.length - 1
@@ -284,7 +297,7 @@ export default {
           local.displayProjet()  
         }
         else if (item_name == "next"){
-          flash()
+          buttonEvent()
           clicked(next)
           local.loadedProject += 1
           if (local.loadedProject > local.projects.length - 1){
@@ -293,32 +306,36 @@ export default {
           local.displayProjet()  
         }
         else if (item_name == "visit"){
-          flash()
+          buttonEvent()
           clicked(this.visit)
           if (local.projects[local.loadedProject].page_link){
             window.open(local.projects[local.loadedProject].page_link)
           }
         }
         else if (item_name == "git"){
-          flash()
+          buttonEvent()
           clicked(git)
           if (local.projects[local.loadedProject].git_link){
             window.open(local.projects[local.loadedProject].git_link)
           }
         }
         else if (item_name == "power"){
-          flash()
+          buttonEvent()
           clicked(power)
           local.$emit('exit')
         }
       } 
 
       // Red Light flashing
-      function flash (){        
-      red_point_light.intensity = 10
-        setTimeout(() => {        
-          red_point_light.intensity = 0
-        }, 100)
+      function buttonEvent (){        
+        // FlashLight
+        red_point_light.intensity = 10
+          setTimeout(() => {        
+            red_point_light.intensity = 0
+          }, 100)
+
+        // If touchScreen, Block mousemove
+        local.checkTouchScreen()
       }
 
       function clicked(item){        
@@ -351,17 +368,31 @@ export default {
       }
     }
 
+    // Check for TouchScreen
+    this.usingTouchScreen = 
+    ( 'ontouchstart' in window ) || 
+    ( navigator.maxTouchPoints > 0 ) ||
+    ( navigator.msMaxTouchPoints > 0 )
+
+    console.log('this.usingTouchScreen', this.usingTouchScreen);
+
     // --- Camera animation  ---
     let projects = document.getElementById('projects')
     projects.addEventListener('mousemove', event => {
-      if (!this.blockMouseControl){
-        let ratioX = window.innerWidth / this.angleX
-        let ratioY = window.innerHeight / this.angleY
-
-        this.cameraRotationX = this.screenOffset + (((window.innerWidth - event.offsetX) / ratioX) - this.angleX / 2)
-        this.cameraRotationY = ((window.innerHeight - event.offsetY) / ratioY) - this.angleY / 2
+      let timeout = 0
+      if (this.usingTouchScreen){
+        timeout = 25
       }
-    })
+      setTimeout(() => {
+        if (!this.blockMouseControl){
+          let ratioX = window.innerWidth / this.angleX
+          let ratioY = window.innerHeight / this.angleY
+
+          this.cameraRotationX = this.screenOffset + (((window.innerWidth - event.offsetX) / ratioX) - this.angleX / 2)
+          this.cameraRotationY = ((window.innerHeight - event.offsetY) / ratioY) - this.angleY / 2
+        }
+      }, timeout)      
+    })    
   }
 }
 </script>

@@ -123,13 +123,18 @@ export default {
     // Resize
     renderer.setSize(window.innerWidth, window.innerHeight)
 
-    // Camera Controler    
-    let controls = new OrbitControls(camera, renderer.domElement)
-    controls.minDistance = 2
-    controls.maxDistance = 10
-    controls.target.set(0, 1, 0)
-    controls.enableZoom = false
-    controls.update()
+    // Disable scene control usging TouchScreen 
+    if (!(( 'ontouchstart' in window ) || 
+    ( navigator.maxTouchPoints > 0 ) ||
+    ( navigator.msMaxTouchPoints > 0 ))) {
+      // Camera Controler    
+      let controls = new OrbitControls(camera, renderer.domElement)
+      controls.minDistance = 2
+      controls.maxDistance = 10
+      controls.target.set(0, 1, 0)
+      controls.enableZoom = false
+      controls.update()
+    }
     
     this.animate = function () {
       if (local.run){
