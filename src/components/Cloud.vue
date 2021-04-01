@@ -1,8 +1,8 @@
 <template>
   <div id="cloud"> 
-    <div id="cloud_container" data-scroll data-scroll-speed="4">
+    <div id="cloud_container" data-scroll data-scroll-speed="2">
       <img :src="require('../assets/image/cloud.png')" alt="cloud">
-      <p data-scroll data-scroll-speed="-4" data-scroll-offset="-500, 0">
+      <p data-scroll data-scroll-speed="-2" data-scroll-offset="-500, 0">
         and
       </p>
     </div>
