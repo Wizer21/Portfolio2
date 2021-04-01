@@ -92,8 +92,8 @@ export default {
 
     // WIP
     setTimeout(() => {
-      this.scroll.update
-    }, 1000)
+      this.scroll.update()
+    }, 1500)
   }
 }
 </script>

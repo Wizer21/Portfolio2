@@ -16,7 +16,7 @@
       <div id="button_background">
       </div>
       <p id="projects_button">
-        Project
+        Projects
       </p>
     </div>
     <div id="hero_body">

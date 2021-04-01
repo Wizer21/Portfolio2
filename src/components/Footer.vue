@@ -127,6 +127,8 @@ export default {
   grid-row: 1;
   font-size: 12vw;
   margin: 0px;
+
+  outline: none;
 }
 #gmail
 {
