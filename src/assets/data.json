@@ -1,5 +1,25 @@
 [
   {
+    "title": "Deviant Art Gallery",
+    "description": "Gallery presentation based on the Deviant Art's Api.",
+    "git_link": "https://github.com/Wizer21/DeviantDisplay",
+    "page_link": "https://deviant-art-gallery.herokuapp.com/",
+    "start_date": "02/04/2021",
+    "end_date": "05/04/2021",
+    "image": "deviant.jpg",
+    "tech": ["javascript", "html", "css", "vuejs", "threejs"]
+  },  
+  {
+    "title": "Portfolio",
+    "description": "Web portfolio, resuming all the projects I've realized.",
+    "git_link": "https://github.com/Wizer21/Wizer21.github.io",
+    "page_link": "https://wizer21.github.io/",
+    "start_date": "24/03/2021",
+    "end_date": "01/04/2021",
+    "image": "port2.jpg",
+    "tech": ["javascript", "html", "css", "vuejs", "threejs", "locomotive"]
+  },  
+  {
     "title": "Monstera",
     "description": "Page showcasing the Monstera Deliciosa",
     "git_link": "https://github.com/Wizer21/Monstera",
@@ -31,7 +51,7 @@
   {
     "title": "First Portfolio",
     "description": "Web portfolio, resuming all the projects I've realized.",
-    "git_link": "https://github.com/Wizer21/Portfolio",
+    "git_link": "https://github.com/Wizer21/Portfolio1",
     "page_link": "https://portfoliomonstera.herokuapp.com/index.html",
     "start_date": "24/02/2021",
     "end_date": "02/03/2021",

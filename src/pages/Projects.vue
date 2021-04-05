@@ -514,6 +514,10 @@ export default {
   font-size: 1.5em;  
   transition-duration: 500ms;
 }
+#description_pannel p
+{
+  margin: 2vh 0;
+}
 #icon_stack_holder
 {
   display: flex;
@@ -576,6 +580,8 @@ export default {
   opacity: 0;
 
   transition-duration: 500ms;
+
+  mix-blend-mode: difference;
 }
 #message p
 {
@@ -600,10 +606,6 @@ export default {
   {
     width: 100%;
     margin: 0px;
-  }
-  #project_description p
-  {
-    margin: 10px;
   }
   .icon_holder
   {
