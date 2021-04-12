@@ -1,5 +1,15 @@
 [
   {
+    "title": "Boulangerie",
+    "description": "Presentation of a fictitious bakery",
+    "git_link": "https://github.com/Wizer21/boulangerie",
+    "page_link": "https://boulangerie-showcase.herokuapp.com/",
+    "start_date": "12/04/2021",
+    "end_date": "07/04/2021",
+    "image": "boulangerie.png",
+    "tech": ["javascript", "html", "css", "vuejs", "locomotive"]
+  }, 
+  {
     "title": "Deviant Art Gallery",
     "description": "Gallery presentation based on the Deviant Art's Api.",
     "git_link": "https://github.com/Wizer21/DeviantDisplay",
